@@ -288,7 +288,13 @@ public class LoginActivity extends AappZ {
                                             });
                                 }
                             } else {
-                                setToast("Authentication failed.");
+                                mAuth.signInWithEmailAndPassword(mEmail, mPassword)
+                                        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                                            @Override
+                                            public void onSuccess(AuthResult authResult) {
+                                                setActivity(MainActivity.class);
+                                            }
+                                        });
                             }
                         }
                     });
