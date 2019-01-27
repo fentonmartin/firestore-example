@@ -21,13 +21,18 @@ import android.widget.TextView;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.github.fentonmartin.aappz.AappZ;
 
@@ -104,7 +109,31 @@ public class LoginActivity extends AappZ {
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                // ...
+
+                if (user != null) {
+                    Map<String, Object> city = new HashMap<>();
+                    if (user.getDisplayName() != null)
+                        city.put("name", user.getDisplayName());
+                    if (user.getEmail() != null)
+                        city.put("email", user.getEmail());
+                    city.put("uid", user.getUid());
+
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    db.collection("user").document(user.getUid())
+                            .set(city)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    setLog("DocumentSnapshot successfully written!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    setLog("Error writing document " + e.getLocalizedMessage());
+                                }
+                            });
+                }
             } else {
                 // Sign in failed. If response is null the user canceled the
                 // sign-in flow using the back button. Otherwise check
@@ -230,6 +259,29 @@ public class LoginActivity extends AappZ {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 if (user != null) {
                                     setToast(user.getEmail() + " registered!");
+
+                                    Map<String, Object> city = new HashMap<>();
+                                    if (user.getDisplayName() != null)
+                                        city.put("name", user.getDisplayName());
+                                    if (user.getEmail() != null)
+                                        city.put("email", user.getEmail());
+                                    city.put("uid", user.getUid());
+
+                                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                    db.collection("user").document(user.getUid())
+                                            .set(city)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    setLog("DocumentSnapshot successfully written!");
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    setLog("Error writing document " + e.getLocalizedMessage());
+                                                }
+                                            });
                                 }
                             } else {
                                 setToast("Authentication failed.");
