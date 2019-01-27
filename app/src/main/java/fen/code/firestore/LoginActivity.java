@@ -2,6 +2,7 @@ package fen.code.firestore;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -229,6 +230,7 @@ public class LoginActivity extends AappZ {
         });
     }
 
+    @SuppressLint("StaticFieldLeak")
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mEmail;
@@ -274,12 +276,14 @@ public class LoginActivity extends AappZ {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
                                                     setLog("DocumentSnapshot successfully written!");
+                                                    setActivity(MainActivity.class);
                                                 }
                                             })
                                             .addOnFailureListener(new OnFailureListener() {
                                                 @Override
                                                 public void onFailure(@NonNull Exception e) {
                                                     setLog("Error writing document " + e.getLocalizedMessage());
+                                                    setToast("Error writing document " + e.getLocalizedMessage());
                                                 }
                                             });
                                 }
@@ -297,9 +301,7 @@ public class LoginActivity extends AappZ {
             mAuthTask = null;
             showProgress(false);
 
-            if (success) {
-                setActivity(MainActivity.class);
-            } else {
+            if (!success) {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }
