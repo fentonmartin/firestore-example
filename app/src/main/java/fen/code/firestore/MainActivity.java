@@ -17,4 +17,12 @@ public class MainActivity extends AppCompatActivity {
         // Firebase Analytics instance
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
     }
+
+    public void firebaseLog(String type, String log) {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, type);
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, log);
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, log);
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+    }
 }
