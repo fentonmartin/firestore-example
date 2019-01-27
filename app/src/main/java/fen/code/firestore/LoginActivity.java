@@ -293,7 +293,32 @@ public class LoginActivity extends AappZ {
                                         .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                                             @Override
                                             public void onSuccess(AuthResult authResult) {
-                                                setActivity(MainActivity.class);
+                                                FirebaseUser user = authResult.getUser();
+                                                if (user != null) {
+                                                    Map<String, Object> city = new HashMap<>();
+                                                    if (user.getDisplayName() != null)
+                                                        city.put("name", user.getDisplayName());
+                                                    if (user.getEmail() != null)
+                                                        city.put("email", user.getEmail());
+                                                    city.put("uid", user.getUid());
+
+                                                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                                    db.collection("user").document(user.getUid())
+                                                            .set(city)
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+                                                                    setLog("DocumentSnapshot successfully written!");
+                                                                    setActivity(MainActivity.class);
+                                                                }
+                                                            })
+                                                            .addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception e) {
+                                                                    setLog("Error writing document " + e.getLocalizedMessage());
+                                                                }
+                                                            });
+                                                }
                                             }
                                         });
                             }
