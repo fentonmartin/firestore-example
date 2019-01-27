@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "531184621645",
+    "firebase_url": "https://fenton-martin.firebaseio.com",
+    "project_id": "fenton-martin",
+    "storage_bucket": "fenton-martin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:531184621645:android:73b5230a529778fb",
+        "android_client_info": {
+          "package_name": "fen.code.firestore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "531184621645-lc2i3cgjk47kg2lm53pgp8vrivgqndnv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fen.code.firestore",
+            "certificate_hash": "082e64437f495f9e722d76f7dabe129aecb4b442"
+          }
+        },
+        {
+          "client_id": "531184621645-ibbk1a00hbcsm1nl12kqjf2ri89i5hnt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2uZracg27fR7vDRY0gjKlMczkSRCyMXA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "531184621645-ibbk1a00hbcsm1nl12kqjf2ri89i5hnt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
