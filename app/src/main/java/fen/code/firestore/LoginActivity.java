@@ -288,6 +288,7 @@ public class LoginActivity extends AappZ {
                                             });
                                 }
                             } else {
+                                setToast("Sign in with " + mEmail);
                                 mAuth.signInWithEmailAndPassword(mEmail, mPassword)
                                         .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                                             @Override
