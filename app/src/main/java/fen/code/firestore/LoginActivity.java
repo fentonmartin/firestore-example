@@ -28,7 +28,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.Executor;
 
 import io.github.fentonmartin.aappz.AappZ;
 
@@ -224,7 +223,7 @@ public class LoginActivity extends AappZ {
 
             // TODO: register the new account here.
             mAuth.createUserWithEmailAndPassword(mEmail, mPassword)
-                    .addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
+                    .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
