@@ -26,7 +26,9 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Arrays;
 import java.util.List;
 
-public class LoginActivity extends AppCompatActivity {
+import io.github.fentonmartin.aappz.AappZ;
+
+public class LoginActivity extends AappZ {
 
     private UserLoginTask mAuthTask = null;
     private AutoCompleteTextView mEmailView;
