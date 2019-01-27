@@ -246,7 +246,7 @@ public class LoginActivity extends AappZ {
             showProgress(false);
 
             if (success) {
-                finish();
+                setActivity(MainActivity.class);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
