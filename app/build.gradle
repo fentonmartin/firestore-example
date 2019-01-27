@@ -34,5 +34,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.6'
     implementation 'com.google.firebase:firebase-firestore:17.1.5'
     /* Other dependencies */
+    implementation 'com.firebaseui:firebase-ui-auth:4.1.0'
     implementation 'io.github.fentonmartin:aappz:1.0.0'
 }

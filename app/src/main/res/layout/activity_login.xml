@@ -75,6 +75,17 @@
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold" />
 
+            <Button
+                android:id="@+id/other_sign_in_button"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorAccent"
+                android:text="@string/action_sign_in"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold" />
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
