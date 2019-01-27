@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -20,16 +20,21 @@ import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.Executor;
 
 import io.github.fentonmartin.aappz.AappZ;
 
 public class LoginActivity extends AappZ {
 
+    private FirebaseAuth mAuth;
     private UserLoginTask mAuthTask = null;
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
@@ -47,6 +52,8 @@ public class LoginActivity extends AappZ {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        mAuth = FirebaseAuth.getInstance();
 
         // Set up the login form.
         mEmailView = findViewById(R.id.email);
@@ -216,6 +223,20 @@ public class LoginActivity extends AappZ {
             }
 
             // TODO: register the new account here.
+            mAuth.createUserWithEmailAndPassword(mEmail, mPassword)
+                    .addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                if (user != null) {
+                                    setToast(user.getEmail() + " registered!");
+                                }
+                            } else {
+                                setToast("Authentication failed.");
+                            }
+                        }
+                    });
 
             return true;
         }
